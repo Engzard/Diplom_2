@@ -1,0 +1,1 @@
+URL = "https://stellarburgers.education-services.ru/api"
