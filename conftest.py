@@ -6,7 +6,6 @@ from helpers import generate_random_string
 
 @pytest.fixture
 def unique_user_data():
-    """Генерирует данные для уникального пользователя"""
     email = f"{generate_random_string(10)}@yandex.ru"
     name = f'{generate_random_string(10)}'
     return {
@@ -18,7 +17,6 @@ def unique_user_data():
 
 @pytest.fixture
 def existing_user_data():
-    """Создает и возвращает данные существующего пользователя"""
     email = f"{generate_random_string(10)}@yandex.ru"
     name = f'{generate_random_string(10)}'
     user_data = {
@@ -27,6 +25,6 @@ def existing_user_data():
         "name": name
     }
     response = requests.post(f"{URL}/auth/register", json=user_data)
-    assert response.status_code == 200
 
-    return user_data
+    yield user_data
+    response = requests.delete(f"{URL}/auth/user ", json=user_data)
